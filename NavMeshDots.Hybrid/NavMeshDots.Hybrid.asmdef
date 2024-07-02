@@ -1,0 +1,27 @@
+﻿{
+  "name": "NavMeshDots.Hybrid",
+  "references": [
+    "Unity.Entities",
+    "Unity.Jobs",
+    "Unity.Mathematics",
+    "Unity.Transforms",
+    "Unity.Collections",
+    "Unity.Entities.Hybrid",
+    "Unity.Burst",
+    "Unity.Scenes",
+    "Unity.AI.Navigation",
+    "Unity.Physics",
+    "Unity.Physics.Custom",
+    "Unity.Physics.Hybrid",
+    "NavMeshDots.Runtime",
+    "Toolbox.Editor",
+    "Toolbox"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "noEngineReferences": false
+}

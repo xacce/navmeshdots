@@ -1,0 +1,20 @@
+{
+  "name": "com.xacce.navmeshdots",
+  "displayName": "navmeshdots",
+  "version": "0.0.1",
+  "unity": "2022.3",
+  "description": "",
+  "documentationURL": "",
+  "dependencies": {
+    "com.unity.entities": "1.2.1",
+    "com.unity.burst": "1.8.12",
+    "com.unity.ai.navigation": "1.1.5",
+    "com.browar.editor-toolbox": "https://github.com/arimger/Unity-Editor-Toolbox.git"
+  },
+  "keywords": [
+    "dots"
+  ],
+  "author": {
+    "name": "Xacce"
+  }
+}
