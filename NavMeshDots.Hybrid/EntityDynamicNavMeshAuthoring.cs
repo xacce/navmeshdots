@@ -2,32 +2,34 @@
 using NavMeshDots.Runtime;
 using Unity.Entities;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace NavMeshDots.Hybrid
 {
-    public class EntityDynamicNavMeshAuthoring : MonoBehaviour
+    public class EntityDynamicNavMeshAuthoring : AbstractEntityNavMeshDataAuthoring
     {
         // [SerializeField] private PhysicsShapeAuthoring[] shapes_s = Array.Empty<PhysicsShapeAuthoring>();
         [SerializeField] private int agentTypeId = 0;
         [SerializeField] private bool buildAtstart = true;
-        [SerializeField] private bool loadAfterBuild = true;
+        [SerializeField] private bool spawnAfterBuild = true;
 
         class B : Baker<EntityDynamicNavMeshAuthoring>
         {
             public override void Bake(EntityDynamicNavMeshAuthoring sourcesAggregatorAuthoring)
             {
                 var entity = GetEntity(TransformUsageFlags.None);
-                AddComponent<EntityDynamicNavMeshData>(entity);
                 AddComponent<DynamicTag>(entity);
-                AddComponentObject(entity, new EntityNavMeshData());
-                if (sourcesAggregatorAuthoring.buildAtstart) AddComponent<Build>(entity);
-                if (sourcesAggregatorAuthoring.loadAfterBuild) AddComponent<Load>(entity);
-                SetComponent(
+                AddComponentObject(
                     entity,
-                    new EntityDynamicNavMeshData()
+                    new EntityNavMeshData()
                     {
+                        // data = sourcesAggregatorAuthoring.navMesh_s,
                         agentTypeId = sourcesAggregatorAuthoring.agentTypeId
                     });
+                if (sourcesAggregatorAuthoring.navMesh_s != null) AddComponent<BuiltNavMesh>(entity);
+                if (sourcesAggregatorAuthoring.buildAtstart && sourcesAggregatorAuthoring.navMesh_s == null) AddComponent<BuildNavMesh>(entity);
+                if (sourcesAggregatorAuthoring.spawnAfterBuild) AddComponent<SpawnNavMesh>(entity);
+
             }
         }
     }

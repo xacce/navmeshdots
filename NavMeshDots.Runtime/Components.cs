@@ -53,22 +53,27 @@ namespace NavMeshDots.Runtime
     public partial class EntityNavMeshData : IComponentData
     {
         public NavMeshData data;
-    }
-
-    public partial struct EntityDynamicNavMeshData : IComponentData
-    {
         public int agentTypeId;
     }
 
-    public partial struct Load : IComponentData
+    // public partial struct EntityDynamicNavMeshData : IComponentData
+    // {
+    //  
+    // }
+
+    public partial struct SpawnNavMesh : IComponentData
     {
     }
 
-    public partial struct Build : IComponentData
+    public partial struct LoadNavMesh : IComponentData
     {
     }
 
-    public partial struct Built : IComponentData
+    public partial struct BuildNavMesh : IComponentData
+    {
+    }
+
+    public partial struct BuiltNavMesh : IComponentData
     {
     }
 

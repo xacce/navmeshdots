@@ -14,7 +14,7 @@
     "Unity.Physics.Custom",
     "Unity.Physics.Hybrid",
     "NavMeshDots.Runtime",
-    "Toolbox.Editor",
+    "com.browar.editor-toolbox",
     "Toolbox"
   ],
   "excludePlatforms": [],

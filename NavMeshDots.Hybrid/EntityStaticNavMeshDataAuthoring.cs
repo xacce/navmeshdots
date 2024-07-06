@@ -7,23 +7,23 @@ using UnityEngine.AI;
 
 namespace NavMeshDots.Hybrid
 {
-    public class EntityLazyNavMeshDataAuthoring : AbstractEntityNavMeshDataAuthoring
+    public class EntityStaticNavMeshDataAuthoring : AbstractEntityNavMeshDataAuthoring
     {
         [SerializeField] private bool autoLoad = true;
 
-        class EntityNavMeshDataBaker : Baker<EntityLazyNavMeshDataAuthoring>
+        class EntityStaticNavMeshDataAuthoringB : Baker<EntityStaticNavMeshDataAuthoring>
         {
-            public override void Bake(EntityLazyNavMeshDataAuthoring authoring)
+            public override void Bake(EntityStaticNavMeshDataAuthoring authoring)
             {
                 if (!authoring.navMesh_s) return;
                 var entity = GetEntity(TransformUsageFlags.None);
                 AddComponent<StaticTag>(entity);
                 AddComponent<BuiltNavMesh>(entity);
-                AddComponent(
+                AddComponentObject(
                     entity,
-                    new EntityLazyNavMeshData()
+                    new EntityNavMeshData()
                     {
-                        data = new WeakObjectReference<NavMeshData>(authoring.navMesh_s),
+                        data = authoring.navMesh_s,
                     });
                 if (authoring.autoLoad)
                 {
