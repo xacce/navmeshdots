@@ -13,7 +13,7 @@ namespace NavMeshDots.Runtime
     {
         protected override void OnCreate()
         {
-            NavMesh.RemoveAllNavMeshData();
+            // NavMesh.RemoveAllNavMeshData();
         }
 
         protected override void OnUpdate()

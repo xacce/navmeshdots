@@ -14,7 +14,6 @@
     "Unity.Physics.Custom",
     "Unity.Physics.Hybrid",
     "NavMeshDots.Runtime",
-    "com.browar.editor-toolbox",
     "Toolbox"
   ],
   "excludePlatforms": [],
@@ -23,5 +22,12 @@
   "precompiledReferences": [],
   "autoReferenced": true,
   "defineConstraints": [],
-  "noEngineReferences": false
+  "noEngineReferences": false,
+  "versionDefines": [
+    {
+      "name": "com.unity.physics",
+      "expression": "1.0.16",
+      "define": "HAS_ENTITIES_PHYSICS"
+    }
+  ]
 }

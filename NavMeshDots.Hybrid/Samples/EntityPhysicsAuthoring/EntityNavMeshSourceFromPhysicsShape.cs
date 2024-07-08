@@ -1,5 +1,6 @@
-﻿#if UNITY_EDITOR && UNITY_PHYSICS_CUSTOM
+﻿#if UNITY_EDITOR && HAS_ENTITIES_PHYSICS
 using Unity.Mathematics;
+using Unity.Physics.Authoring;
 using UnityEngine;
 using UnityEngine.AI;
 
