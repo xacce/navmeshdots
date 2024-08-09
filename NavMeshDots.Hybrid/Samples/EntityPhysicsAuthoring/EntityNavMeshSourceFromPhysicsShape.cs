@@ -8,7 +8,7 @@ namespace NavMeshDots.Hybrid
 {
     public class EntityNavMeshSourceFromPhysicsShape : MonoBehaviour, IEntityNavMeshSourceProvider
     {
-
+        [SerializeField] private int area = 0;
         public bool TryGetSource(out _NavMeshBuildSource result)
         {
             result = default;
@@ -18,7 +18,7 @@ namespace NavMeshDots.Hybrid
                 case ShapeType.Capsule:
                 {
                     var props = entityCollider.GetCapsuleProperties();
-                    result.m_Area = 0;
+                    result.m_Area = area;
                     result.m_Shape = NavMeshBuildSourceShape.Capsule;
                     result.m_Size = new Vector3(props.Radius, props.Height, props.Radius); //todo where is edges count? z?
                     result.m_Transform = Matrix4x4.TRS(
@@ -30,7 +30,7 @@ namespace NavMeshDots.Hybrid
                 case ShapeType.Cylinder:
                 {
                     var props = entityCollider.GetCylinderProperties();
-                    result.m_Area = 0;
+                    result.m_Area = area;
                     result.m_Shape = NavMeshBuildSourceShape.Box;
                     result.m_Size = new Vector3(props.Radius, props.Height, props.Radius);
                     result.m_Transform = Matrix4x4.TRS(
@@ -41,7 +41,7 @@ namespace NavMeshDots.Hybrid
                     break;
                 }
                 case ShapeType.Box:
-                    result.m_Area = 0;
+                    result.m_Area = area;
                     result.m_Shape = NavMeshBuildSourceShape.Box;
                     result.m_Size = entityCollider.GetBoxProperties().Size * entityCollider.transform.localScale;
                     result.m_Transform = Matrix4x4.TRS(
@@ -51,7 +51,7 @@ namespace NavMeshDots.Hybrid
                     break;
                 case ShapeType.Plane:
                     entityCollider.GetPlaneProperties(out var center, out var size, out var rotation);
-                    result.m_Area = 0;
+                    result.m_Area = area;
                     result.m_Shape = NavMeshBuildSourceShape.Box;
                     result.m_Size = new float3(size.x * entityCollider.transform.localScale.x, 0.1f, size.y * entityCollider.transform.localScale.y);
                     result.m_Transform = Matrix4x4.TRS(
