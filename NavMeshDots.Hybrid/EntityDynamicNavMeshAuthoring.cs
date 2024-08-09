@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 namespace NavMeshDots.Hybrid
 {
+    [DisallowMultipleComponent]
     public class EntityDynamicNavMeshAuthoring : AbstractEntityNavMeshDataAuthoring
     {
         // [SerializeField] private PhysicsShapeAuthoring[] shapes_s = Array.Empty<PhysicsShapeAuthoring>();

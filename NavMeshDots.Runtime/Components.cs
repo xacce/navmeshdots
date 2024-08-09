@@ -14,15 +14,21 @@ namespace NavMeshDots.Runtime
     //     public int area;
     // }
 
-    public struct NavMeshSourcesBlob
-    {
-        public BlobArray<NavMeshBuildSource> sources;
-    }
+    // public struct NavMeshSourcesBlob
+    // {
+    //     public BlobArray<NavMeshBuildSource> sources;
+    // }
 
-    public partial struct NavMeshSourcesBlobStorage : IComponentData
-    {
-        public BlobAssetReference<NavMeshSourcesBlob> blob;
-    }
+    // public partial struct NavMeshSourcesBlobStorage : IComponentData
+    // {
+    //     public BlobAssetReference<NavMeshSourcesBlob> blob;
+    // }
+
+    
+    //
+    // public partial struct NavMeshStaticSource : IComponentData
+    // {
+    // }
 
     [InternalBufferCapacity(0)]
     public partial struct NavMeshSourceElement : IBufferElementData
@@ -32,13 +38,12 @@ namespace NavMeshDots.Runtime
 
     public partial struct StaticTag : IComponentData
     {
-
     }
 
     public partial struct DynamicTag : IComponentData
     {
-
     }
+
 
     public partial struct EntityNavMeshBounds : IComponentData
     {
@@ -68,7 +73,9 @@ namespace NavMeshDots.Runtime
     public partial struct LoadNavMesh : IComponentData
     {
     }
-
+    public partial struct ReBuildNavMesh : IComponentData
+    {
+    }
     public partial struct BuildNavMesh : IComponentData
     {
     }

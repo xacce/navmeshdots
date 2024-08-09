@@ -8,33 +8,16 @@ using UnityEngine.AI;
 
 namespace NavMeshDots.Runtime
 {
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
-    public partial class PreInitializeNavMeshSystem : SystemBase
-    {
-        protected override void OnCreate()
-        {
-            // NavMesh.RemoveAllNavMeshData();
-        }
-
-        protected override void OnUpdate()
-        {
-        }
-    }
-
-    [UpdateInGroup(typeof(InitializationSystemGroup))]
-    [UpdateAfter(typeof(PreInitializeNavMeshSystem))]
+    [UpdateInGroup(typeof(NavMeshDotsSystemGroup))]
     public partial class NavMeshDotsManagedSystem : SystemBase
     {
         protected override void OnDestroy()
         {
-            // foreach (var (dataAccess, entity) in SystemAPI.Query<RefRW<EntityLazyNavMeshData>>().WithEntityAccess())
-            // {
-            // dataAccess.ValueRW.data.Release();
-            // }
             foreach (var (instance, entity) in SystemAPI.Query<RefRW<EntityNavMeshInstance>>().WithEntityAccess())
             {
                 NavMesh.RemoveNavMeshData(instance.ValueRO.instance);
             }
+
             base.OnDestroy();
         }
 
@@ -45,7 +28,8 @@ namespace NavMeshDots.Runtime
 
             #region Create instances from not loaded (weak referenced) nav meshes
 
-            foreach (var (dataAccess, entity) in SystemAPI.Query<RefRW<EntityLazyNavMeshData>>().WithAll<LoadNavMesh, BuiltNavMesh>().WithNone<EntityNavMeshInstance>().WithEntityAccess())
+            foreach (var (dataAccess, entity) in SystemAPI.Query<RefRW<EntityLazyNavMeshData>>().WithAll<LoadNavMesh, BuiltNavMesh>().WithNone<EntityNavMeshInstance>()
+                         .WithEntityAccess())
             {
                 var dataRo = dataAccess.ValueRO;
                 switch (dataRo.data.LoadingStatus)
@@ -73,7 +57,6 @@ namespace NavMeshDots.Runtime
                         Debug.Log($"Status: {dataRo.data.LoadingStatus}");
                         break;
                 }
-
             }
 
             #endregion
@@ -134,19 +117,18 @@ namespace NavMeshDots.Runtime
 
             foreach (var (sources, bounds, navMeshData, entity) in SystemAPI
                          .Query<DynamicBuffer<NavMeshSourceElement>, RefRO<EntityNavMeshBounds>, EntityNavMeshData>()
-                         .WithAll<BuildNavMesh, BuiltNavMesh, DynamicTag>()
+                         .WithAll<ReBuildNavMesh, BuiltNavMesh, DynamicTag>()
                          .WithEntityAccess())
             {
                 var sourcesList = new List<NavMeshBuildSource>(sources.Length);
-                sourcesList.AddRange(sources.Reinterpret<NavMeshBuildSource>().AsNativeArray());
+                sourcesList.AddRange(sources.Reinterpret<NavMeshBuildSource>().AsNativeArray()); //todo make direct
                 var settings = NavMesh.GetSettingsByIndex(navMeshData.agentTypeId);
                 Debug.Log($"Nav mesh was rebuild, sources size: {sourcesList.Count}");
-                NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData.data, settings, sourcesList, bounds.ValueRO.bounds);
-                ecb.RemoveComponent<BuildNavMesh>(entity);
+                var p = NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData.data, settings, sourcesList, bounds.ValueRO.bounds);
+                ecb.RemoveComponent<ReBuildNavMesh>(entity); //todo control async operation
             }
 
             #endregion
-
         }
     }
 }

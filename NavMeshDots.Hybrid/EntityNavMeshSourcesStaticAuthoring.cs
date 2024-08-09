@@ -33,7 +33,7 @@ namespace NavMeshDots.Hybrid
         }
     }
 
-    public class EntityNavMeshSourcesAggregatorAuthoring : MonoBehaviour
+    public class EntityNavMeshSourcesStaticAuthoring : MonoBehaviour
     {
         [SerializeField] private bool bake_s = true;
         [SerializeField] private _NavMeshBuildSource[] serialized_s = Array.Empty<_NavMeshBuildSource>();
@@ -70,15 +70,15 @@ namespace NavMeshDots.Hybrid
             so.ApplyModifiedProperties();
         }
 
-        class B : Baker<EntityNavMeshSourcesAggregatorAuthoring>
+        class B : Baker<EntityNavMeshSourcesStaticAuthoring>
         {
-            public override void Bake(EntityNavMeshSourcesAggregatorAuthoring sourcesAggregatorAuthoring)
+            public override void Bake(EntityNavMeshSourcesStaticAuthoring sourcesStaticAuthoring)
             {
-                if (!sourcesAggregatorAuthoring.bake_s) return;
+                if (!sourcesStaticAuthoring.bake_s) return;
                 var entity = GetEntity(TransformUsageFlags.None);
                 AddBuffer<NavMeshSourceElement>(entity);
 
-                foreach (var p in sourcesAggregatorAuthoring.serialized_s)
+                foreach (var p in sourcesStaticAuthoring.serialized_s)
                 {
                     AppendToBuffer(
                         entity,

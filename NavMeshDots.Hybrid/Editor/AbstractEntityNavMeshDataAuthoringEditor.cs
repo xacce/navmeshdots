@@ -16,7 +16,7 @@ namespace NavMeshDots.Hybrid.Editor
             base.OnInspectorGUI();
             GUILayout.Space(10);
             var trg = (AbstractEntityNavMeshDataAuthoring)target;
-            if (!(((target as AbstractEntityNavMeshDataAuthoring)!).gameObject).TryGetComponent(out EntityNavMeshSourcesAggregatorAuthoring aggregator)) return;
+            if (!(((target as AbstractEntityNavMeshDataAuthoring)!).gameObject).TryGetComponent(out EntityNavMeshSourcesStaticAuthoring aggregator)) return;
             var bounds = new Bounds(trg.center, trg.bounds);
             if (GUILayout.Button("Preview"))
             {

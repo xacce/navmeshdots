@@ -7,6 +7,7 @@ using UnityEngine;
 
 namespace NavMeshDots.Hybrid
 {
+    [DisallowMultipleComponent]
     public class EntityDynamicNavMeshBoundsAuthoring : MonoBehaviour
     {
         [SerializeField] private float3 boundsCenter;
