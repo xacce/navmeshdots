@@ -82,11 +82,11 @@ namespace NavMeshDots.Runtime
 
             #region Invalidate instances for deleted navmeshes
 
-            foreach (var (dataAccess, entity) in SystemAPI.Query<RefRO<EntityNavMeshInstance>>().WithAll<StaticTag>().WithNone<EntityNavMeshData, EntityLazyNavMeshData>()
+            foreach (var (dataAccess, entity) in SystemAPI.Query<RefRO<EntityNavMeshInstance>>().WithNone<EntityNavMeshData, EntityLazyNavMeshData>()
                          .WithEntityAccess())
             {
                 NavMesh.RemoveNavMeshData(dataAccess.ValueRO.instance);
-                ecb.DestroyEntity(entity);
+                ecb.RemoveComponent<EntityNavMeshInstance>(entity);
             }
 
             #endregion
