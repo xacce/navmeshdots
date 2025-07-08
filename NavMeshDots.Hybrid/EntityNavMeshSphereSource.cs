@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.AI;
@@ -30,3 +31,4 @@ namespace NavMeshDots.Hybrid
         }
     }
 }
+#endif

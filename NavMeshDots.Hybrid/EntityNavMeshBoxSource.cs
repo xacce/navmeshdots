@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEngine.AI;
 
 namespace NavMeshDots.Hybrid
@@ -30,3 +31,4 @@ namespace NavMeshDots.Hybrid
         }
     }
 }
+#endif
