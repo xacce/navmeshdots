@@ -100,7 +100,11 @@ namespace NavMeshDots.Runtime
                          .WithEntityAccess())
             {
                 var sourcesList = new List<NavMeshBuildSource>(sources.Length);
-                sourcesList.AddRange(sources.Reinterpret<NavMeshBuildSource>().AsNativeArray());
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    var source = sources[i];
+                    sourcesList.Add(source.primitive);
+                }
                 var settings = NavMesh.GetSettingsByIndex(navMeshData.agentTypeId);
                 Debug.Log($"Bounds: {bounds.ValueRO.bounds.center}, {bounds.ValueRO.bounds.extents}");
                 var data = NavMeshBuilder.BuildNavMeshData(settings, sourcesList, bounds.ValueRO.bounds, Vector3.zero, Quaternion.identity);
@@ -121,7 +125,11 @@ namespace NavMeshDots.Runtime
                          .WithEntityAccess())
             {
                 var sourcesList = new List<NavMeshBuildSource>(sources.Length);
-                sourcesList.AddRange(sources.Reinterpret<NavMeshBuildSource>().AsNativeArray()); //todo make direct
+                for (int i = 0; i < sources.Length; i++)
+                {
+                    var source = sources[i];
+                    sourcesList.Add(source.primitive);
+                }
                 var settings = NavMesh.GetSettingsByIndex(navMeshData.agentTypeId);
                 Debug.Log($"Nav mesh was rebuild, sources size: {sourcesList.Count}");
                 var p = NavMeshBuilder.UpdateNavMeshDataAsync(navMeshData.data, settings, sourcesList, bounds.ValueRO.bounds);

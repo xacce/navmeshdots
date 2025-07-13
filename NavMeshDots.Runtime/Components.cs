@@ -1,4 +1,5 @@
-﻿using Unity.Entities;
+﻿using System;
+using Unity.Entities;
 using Unity.Entities.Content;
 using Unity.Mathematics;
 using UnityEngine;
@@ -31,9 +32,21 @@ namespace NavMeshDots.Runtime
     // }
 
     [InternalBufferCapacity(0)]
-    public partial struct NavMeshSourceElement : IBufferElementData
+    public partial struct NavMeshSourceElement : IBufferElementData,IEquatable<NavMeshSourceElement>
     {
         public NavMeshBuildSource primitive;
+        public Entity binded;
+
+        public bool Equals(NavMeshSourceElement other)
+        {
+            return binded.Equals(other.binded);
+        }
+
+
+        public override int GetHashCode()
+        {
+            return binded.GetHashCode();
+        }
     }
 
     public partial struct StaticTag : IComponentData
