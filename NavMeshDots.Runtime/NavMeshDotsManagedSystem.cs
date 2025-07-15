@@ -23,7 +23,7 @@ namespace NavMeshDots.Runtime
 
         protected override void OnUpdate()
         {
-            var ecbSingleton = SystemAPI.GetSingleton<EndInitializationEntityCommandBufferSystem.Singleton>();
+            var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
             var ecb = ecbSingleton.CreateCommandBuffer(EntityManager.WorldUnmanaged);
 
             #region Create instances from not loaded (weak referenced) nav meshes
