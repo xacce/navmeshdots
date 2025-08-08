@@ -22,8 +22,8 @@ namespace NavMeshDots.Hybrid
             result= new _NavMeshBuildSource()
             {
                 m_Area = math.max(0, m_Area), //avoid unity crash if ModifierBox area value less zero
-                m_Size = Vector3.one,
-                m_Transform = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale + thinkness),
+                m_Size = transform.localScale + thinkness,
+                m_Transform = Matrix4x4.TRS(transform.position, transform.rotation, Vector3.one),
                 m_Shape = NavMeshBuildSourceShape.ModifierBox,
             };
             return true;
